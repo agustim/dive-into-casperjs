@@ -1,0 +1,16 @@
+{
+  "name": "get-page",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "slimerjs": "PATH=$(npm bin):$PATH casperjs index.js --engine=slimerjs",
+    "phantomjs": "PATH=$(npm bin):$PATH casperjs index.js --engine=phantomjs"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "casperjs": "^1.1.3",
+    "phantomjs": "^2.1.7"
+  }
+}
