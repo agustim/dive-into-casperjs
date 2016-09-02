@@ -9,23 +9,24 @@ casper.on('page.error', function(msg, trace) {
         this.echo('   ' + step.file + ' (line ' + step.line + ')', 'ERROR');
     }
 });
-casper.test.begin('Fiberfy project test', 3, function suite(test) {
-    casper.start('http://localhost:3000/', function() {
-      casper.page.injectJs('../tools/js/responsive.min.js');
-      test.assertTitle("", "fiberfy not homepage title, yet!");
-    });
+casper.test.begin('Fiberfy project test', 2, function suite(test) {
+    casper.start('http://localhost:3000/');
 
     casper.then(function(){
+      test.assertTitle("", "fiberfy not homepage title, yet!");
       this.waitForSelector("form[name=form-login]", function() {
         this.fillSelectors("form[name=form-login]", {
             'input[name="username"]': 'demo',
-            'input[name="password"]': 'NO_demo'
+            'input[name="password"]': 'demo'
         }, true);
       });
       this.waitForUrl(/map$/, function() {
-        this.echo('redirected to map');
-        test.pass("PASS!!")
+        test.pass("Login")
       });
+    });
+
+    casper.run(function() {
+        test.done();
     });
 
 });
