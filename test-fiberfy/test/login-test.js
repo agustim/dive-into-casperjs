@@ -11,6 +11,7 @@ casper.on('page.error', function(msg, trace) {
 });
 casper.test.begin('Fiberfy login test', 5, function suite(test) {
     casper.start('http://localhost:3000', function() {
+      casper.page.injectJs('../tools/js/responsive.min.js');
       test.assertTitle("", "fiberfy not homepage title, yet!");
     });
 
@@ -20,13 +21,13 @@ casper.test.begin('Fiberfy login test', 5, function suite(test) {
       test.assertExists("form[name=form-login] input[name='password']",
                         "password field exist.");
 
-      this.fill("form[name=form-login]", {
-          'username': 'demo',
-          'password': 'NO_demo'
+      this.fillSelectors("form[name=form-login]", {
+          'input[name="username"]': 'demo',
+          'input[name="password"]': 'NO_demo'
       }, true);
-    });
-    casper.then(function(){
-      test.assertSelectorHasText('#message', 'Please enter right password!');
+      casper.waitForSelectorTextChange('#message', function() {
+        test.assertSelectorHasText('#message', 'Please enter right password!');
+      });
     });
 
     casper.then(function(){
