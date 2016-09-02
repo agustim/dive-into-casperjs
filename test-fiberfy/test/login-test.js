@@ -11,7 +11,6 @@ casper.on('page.error', function(msg, trace) {
 });
 casper.test.begin('Fiberfy login test', 5, function suite(test) {
     casper.start('http://localhost:3000', function() {
-      casper.page.injectJs('../tools/js/responsive.min.js');
       test.assertTitle("", "fiberfy not homepage title, yet!");
     });
 
